@@ -19,3 +19,5 @@ Patterns: Promises, Async/Await, Event Loop management (setInterval/clearInterva
 
 🧠 Logic Spotlight: The Restoration Pattern
 The restorePostById function demonstrates precise data handling. It ensures that when a post is recovered, it is treated as a single object (using .find()) before being merged back into the primary data stream.
+
+⚠️ Note: This is a Logic-First Console Project. To see it in action, open the browser's developer tools (F12) and check the Console tab.

@@ -1,0 +1,31 @@
+# 🚀 JavaScript Data Logic Mastery: Employee Dataset
+
+A comprehensive logical deep-dive into JavaScript Array Methods using a complex Employee dataset. This project demonstrates advanced data manipulation, filtering, and structural transformation techniques.
+
+## 📊 Dataset Overview
+The project operates on a collection of employee objects containing:
+- **IDs & Personal Info**
+- **Role-based Data**
+- **Dynamic Skill Arrays**
+- **Salary & Activity Status**
+
+## 💡 Key Logic Implementations
+I have categorized the challenges into 5 Difficulty Levels:
+
+- **Level 1 (Ground Zero):** Basic `filter`, `map`, `some`, and `every` implementations.
+- **Level 2 (Intermediate):** Sorting logic, immutable salary hikes (10%), and `reduce` for total sums.
+- **Level 3 (Pro):** Case-insensitive role filtering, Unique skill extraction using `Set`, and `find` functions.
+- **Level 4 (Advanced):** Data tagging (Senior/Junior), Average calculations, and Role-based grouping (Frequency counters).
+- **Level 5 (Expert):** Data Normalization (ID-to-Object mapping), Smart Search algorithms, and Salary Bracket segmentation.
+
+## 🛠️ Technical Skills Demonstrated
+- **High-Order Functions:** `.map()`, `.filter()`, `.reduce()`, `.flatMap()`, `.some()`, `.every()`.
+- **ES6+ Features:** Spread operator `...`, Template literals, `Set` for uniqueness.
+- **Data Architecture:** Transforming arrays into normalized objects for $O(1)$ lookup time.
+- **Clean Code:** Implementation of `toSorted()` and `toReversed()` for immutability.
+
+## 🚀 How to Run
+1. Clone the repo.
+2. Open `script.js` in any environment or run via Node.js:
+   ```bash
+   node script.js

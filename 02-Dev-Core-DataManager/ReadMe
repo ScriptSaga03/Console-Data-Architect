@@ -24,6 +24,15 @@ I have categorized the challenges into 5 Difficulty Levels:
 - **Data Architecture:** Transforming arrays into normalized objects for $O(1)$ lookup time.
 - **Clean Code:** Implementation of `toSorted()` and `toReversed()` for immutability.
 
+## 🏆 Advanced Mastery Tasks (New Updates)
+Recently added high-level logical operations to simulate real-world business requirements:
+
+- **Task A (The Active Elite):** - **Method Chaining:** Combined `.filter()`, `.map()`, and `.join()` in a single pipeline.
+  - **Business Logic:** Filtered active members, applied a 15% salary hike, and extracted high-earners into a CSV-style string.
+- **Task B (The Skill Specialist):** - **Conditional Aggregation:** Checked for specific skill existence (`Python`) and calculated their collective payroll using `.reduce()`.
+- **Task C (The UI/UX Update):** - **Deep Immutability:** Updated nested properties (Role & Skill Array) for specific objects without mutating the original `dataSet`.
+
+
 ## 🚀 How to Run
 1. Clone the repo.
 2. Open `script.js` in any environment or run via Node.js:

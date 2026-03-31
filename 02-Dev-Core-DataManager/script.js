@@ -412,3 +412,52 @@ const primarySkillList = dataSet.map(emp => ({
 }));
 
 console.log("Primary Skills:", primarySkillList);
+
+
+
+// "Mega Tasks" ko solve karne ki koshish kijiye
+
+// Task A (The Active Elite): * Sirf un employees ko nikaalo jo Active hain.
+// Unki salary ko 15% badhao.
+// Sirf un logo ko rakho jinki nayi salary 1 Lakh se upar hai.
+// Result: Unke names ki ek string comma se separate karke dikhao.
+
+const megaTastA = dataSet.filter(e  => e.active)
+                  .map(emp => {
+                      return{
+                          ...emp,
+                        salary: +(emp.salary * 1.15).toFixed(2)
+                      }
+                  })
+                  .filter(emp => emp.salary >100000)
+                  .map(e => e.name).join(",")
+  
+  ;
+console.log('MegaTask Result: ',megaTastA);
+
+
+// Task B (The Skill Specialist): * Pata karo ki kya poore data mein "Python" skill waale log hain? (True/False)
+// Agar hain, toh unki Total Salary ka sum nikaalo.
+const pythonDevs = dataSet.filter(e => e.skills.includes('Python'));
+const hasPython = pythonDevs.length > 0;
+const totalPythonSalary = pythonDevs.reduce((acc, curr) => acc + curr.salary, 0);
+
+console.log('Has Python skill:', hasPython);
+console.log('Total Python Salary:', totalPythonSalary);
+
+// Task C (The UI/UX Update): * Saare "UI/UX Designer" ka role badal kar "Product Designer" kar do.
+// Unki skills mein "User Research" add kar do.
+// Lekin yaad rahe, dataSet change nahi hona chahiye (Naya array banaiye).
+
+const updateRoles = dataSet.map(emp =>{
+    if(emp.role === 'UI/UX Designer'){
+        return{
+            ...emp,
+          role:"Product Designer",
+          skills: [...emp.skills, "User Research"]
+        }
+    }
+  return emp;
+})
+
+console.log('Updated roles (Safe):', updateRoles);

@@ -440,3 +440,123 @@ const getUniqueCity = (data) =>{
 
 const uniqueCity = getUniqueCity(userData);
 console.log('unique cities :', uniqueCity)
+
+
+// 🔴 LEVEL 4 (Chaining + Complex Logic) [31–40]
+// Active users → salary > 40k → names list
+const getHighPaidActiveUsers = (data) =>
+  data
+    .filter((u) => u.active && u.salary > 40000)
+    .map((u) => ({
+      name: u.name,
+      salary: u.salary,
+    }));
+const getHighPaidUsers = getHighPaidActiveUsers(userData);
+console.log("Active users paid > 40k :", getHighPaidUsers);
+
+
+// Mumbai ke inactive users ke names uppercase
+const getInactiveUserNamesByCity = (data, city) => {
+  const query = city.toLowerCase();
+  return data
+    .filter((u) => u.city.toLowerCase() === query && !u.active)
+    .map((u) => u.name.toUpperCase());
+};
+const inactiveUsersNameByCity = getInactiveUserNamesByCity(userData, "mumbai");
+console.log("City users name :", inactiveUsersNameByCity);
+
+
+// Sab users ki total salary (sirf active)
+// const getActiveUsersTotalSalary = (data) => {
+//   return data
+//     .filter((u) => u.active)
+//     .reduce((total, user) => total + user.salary, 0);
+// };
+
+const getActiveUsersTotalSalary = (data) =>
+  data.reduce((total, u) => {
+    return u.active ? total + u.salary : total;
+  }, 0);
+
+const activeUsersTotalSalary = getActiveUsersTotalSalary(userData);
+console.log("active users salary sum :", activeUsersTotalSalary);
+
+// Skills me "js" wale users filter karo
+const getUsersBySkills = (data, query) => {
+  const skill = query.trim().toLowerCase();
+  return data.filter((u) => u.skills.includes(skill));
+};
+console.log("Has JS skills :", getUsersBySkills(userData, "js"));
+
+
+// "js" skill wale users ka average salary
+const getAvgSalaryBySkill = (data, query) => {
+  const skill = query.trim().toLowerCase();
+  const { total, count } = data.reduce(
+    (acc, u) => {
+      if (u.skills.includes(skill)) {
+        acc.total += u.salary;
+        acc.count++;
+      }
+      return acc;
+    },
+    { total: 0, count: 0 },
+  );
+  return total / count || 0;
+};
+console.log("avg salary by skill :", getAvgSalaryBySkill(userData, "js"));
+
+// Top 2 highest salary users
+const getHighestPaidUser = (data) =>{
+  const result = data.toSorted((a, b) => b.salary - a.salary);
+  const topPaid = result.slice(0,2);
+  return topPaid
+}
+console.log('Top 2 highest paid users: ', getHighestPaidUser(userData));
+
+// Lowest 2 salary users
+const getLowestPaidUser = (data) =>{
+  const result = data.toSorted((a, b) => a.salary - b.salary);
+  const topPaid = result.slice(0,2);
+  return topPaid
+}
+
+console.log('Top 2 lowest paid users: ', getLowestPaidUser(userData));
+
+// Har city ka highest salary user
+const highestPaidUserByCity = (data, city) => {
+  const filtered = data.filter(
+    u => u.city.toLowerCase() === city.toLowerCase()
+  );
+
+  if (!filtered.length) return null;
+
+  return filtered.reduce((max, u) =>
+    u.salary > max.salary ? u : max
+  );
+};
+
+const highestPaidByCity  = highestPaidUserByCity(userData, 'mumbai');
+console.log('highes paid user in city :', highestPaidByCity);
+
+
+// Har user ka new object (name, salary, skillCount)
+const getUserModified = (data)=>{
+  return data.map(u =>({
+    name:u.name,
+    salary:u.salary,
+    skillCount: u.skills.length
+  }))
+}
+
+console.log('modified users :', getUserModified(userData));
+
+// Active users ko salary ke basis pe sort karo
+const sortActiveUsers = (data)=>{
+  return data.filter(u => u.active)
+  .toSorted((a, b) => a.salary - b.salary)
+}
+
+const sortedUsesr = sortActiveUsers(userData);
+console.log('sort active users basis on their salary :', sortedUsesr);
+

@@ -908,8 +908,8 @@ const generateReport = (data) => {
 
       acc[city].users.push(user.name);
       acc[city].totalSalary += user.salary;
-      acc[city].avgSalary = acc[city].totalSalary / acc[city].count;
       acc[city].count += 1;
+      acc[city].avgSalary = acc[city].totalSalary / acc[city].count;
 
       return acc;
     }, {});

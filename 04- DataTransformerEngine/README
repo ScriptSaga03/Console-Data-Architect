@@ -1,1 +1,68 @@
 
+⚙️ Data Transformer Engine (50-Logic Challenge Suite)
+A high-performance JavaScript utility designed to master Array Methods, Data Immutability, and Complex Aggregations. This project contains 50 logical solutions to real-world data transformation problems, organized into 5 difficulty tiers.
+
+🚀 Key Features
+Total Challenges: 50 unique logic implementations.
+
+Complexity: From basic mapping to advanced data pipelines.
+
+Principles: Strictly follows ES6+ standards and Immutability.
+
+Use Case: Simulates data handling for Dashboards, Analytics, and Search Engines.
+
+📊 The 5-Level Logic Roadmap
+🟢 Level 1: Basic Transformation (1–10)
+Fundamental operations for data cleaning.
+
+Basic .map() for name/age extraction.
+
+Array filtering for active status.
+
+String formatting and Case conversions.
+
+🟡 Level 2: Intermediate Analysis (11–20)
+Mathematical and statistical basics.
+
+Payroll calculations using .reduce().
+
+Salary Leaderboards (Highest vs. Lowest).
+
+Frequency counting (Users per city).
+
+🟠 Level 3: Object & Reduce Mastery (21–30)
+Complex structural changes.
+
+Dynamic Grouping: Creating {city: [users]} mappings.
+
+Skill Analysis: Flattening nested skill arrays into frequency maps.
+
+Data Tagging: Adding calculated properties like isRich or skillCount.
+
+🔴 Level 4: Chaining & Refined Logic (31–40)
+Multi-step processing pipelines.
+
+Skill-Based Search: Finding specific tech-stack experts.
+
+Chained Logic: Filter ➡️ Sort ➡️ Slice for "Top 2 High Earners".
+
+Nested Search: Case-insensitive city and skill filtering.
+
+🔥 Level 5: The "Interview Killer" (41–50)
+Advanced algorithms for Senior-level requirements.
+
+Demographic Segmentation: Categorizing users by Age Ranges (20-25, 26-30, etc.).
+
+Global Stats Engine: Automated summaries for the entire dataset.
+
+The Bonus Pipeline: A single generateReport() function that executes a full lifecycle: Filter ➡️ Transform ➡️ Group ➡️ Final Financial Report.
+
+🛠️ Technical Skills Demonstrated
+High-Order Functions: .map(), .filter(), .reduce(), .flatMap(), .some(), .every().
+
+Modern ES6+: Spread Operator (...), Destructuring, Set for uniqueness, and Object.entries.
+
+Functional Programming: Writing pure functions that avoid data mutation.
+
+💻 How to Run
+Clone the repository.

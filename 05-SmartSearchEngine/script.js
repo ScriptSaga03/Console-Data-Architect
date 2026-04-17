@@ -189,29 +189,85 @@ console.log('user less than 20k:', hasUserByLesSalary(users))
 
 // 🟡 LEVEL 2 (Intermediate Conditions) [11–20]
 // 11. Find the first user who is active AND earns more than 40k
-const getFirstActiveHighEarner = (data) =>{
-  return  data.find(u => u.active && u.salary > 40000) || null; 
-}
-console.log('user active & salary > 40k:',getFirstActiveHighEarner(users))
-// 12. Check if any active user has a specific skill (e.g., "react")
-const hasActiveSkillUser = (data, skill) => {
-  const q = skill.trim().toLowerCase();
-  return data.some(u => u.active && u.skills.some(s => s.toLowerCase() === q));
+const getFirstActiveHighEarner = (data) => {
+  return data.find((u) => u.active && u.salary > 40000) || null;
 };
+console.log("user active & salary > 40k:", getFirstActiveHighEarner(users));
+// 12. Check if any active user has a specific skill (e.g., "react")
+// const hasActiveSkillUser = (data, skill) => {
+//   const q = skill.trim().toLowerCase();
+//   return data.some(u => u.active && u.skills.some(s => s.toLowerCase() === q));
+// };
+// console.log('has user a skill :', hasActiveSkillUser(users, 'js'));
+
+const hasActiveUserSkill = (data, query) => {
+  const q = query.trim().toLowerCase();
+
+  return data.some(user =>
+    user.active &&
+    user.skills.some(s => s.toLowerCase() === q)
+  );
+};
+console.log(hasActiveUserSkill(users, "js"))
 
 // 13. Does every user have at least one skill?
-// 14. Find the first user aged between 25 and 30
-// 15. Is there any user with more than 2 skills?
+const haveEveryUserSkill = (data) => {
+  return data.every((u) => u.skills && u.skills.length > 0);
+};
+console.log("Users have least one skill : ", haveEveryUserSkill(users));
 
+// 14. Find the first user aged between 25 and 30
+const findUserByAgeRange = (data, min, max) => {
+  return data.find(u => u.age >= min && u.age <= max);
+};
+
+// usage
+console.log(findUserByAgeRange(users, 25, 30));
+// 15. Is there any user with more than 2 skills?
+const isUserAboveSkills = (data) => {
+  return data.some(u => u.skills && u.skills.length > 2);
+};
+console.log('User above 2 skill: ', isUserAboveSkills(users));
 
 // 16. Find the first inactive user from Mumbai
+const getFirstInActiveUserByCity = (data, city) =>{
+  const c = city.trim().toLowerCase();
+  return data.find(u => u.city.toLowerCase() === c && !u.active);
+} 
 
+console.log('First inActive user by city :', getFirstInActiveUserByCity(users , 'mumbai'))
 
 // 17. Is every user's salary greater than 20k?
+const hasSalaryAbove = (data) =>{
+  return data.every(u => u.salary > 20000)
+}
+
+console.log('Is every users salary above 20k: ', hasSalaryAbove(users));
 
 // 18. Does any duplicate city exist in the data?
+const hasDuplicateCity = (data) => {
+  const seen = [];
+
+  return data.some(user => {
+    if (seen.includes(user.city)) {
+      return true; // duplicate mil gaya
+    } else {
+      seen.push(user.city);
+      return false;
+    }
+  });
+};
+
+console.log(hasDuplicateCity(users));
 
 
 // 19. Find the first user whose name is longer than 4 characters
-
+const nameLength = (data) => {
+  return data.find(u => u.name.length > 4);
+};
+console.log('First user whos name length above 4 char: ', nameLength(users))
 // 20. Is there any user with an empty skills list?
+const noSkill = (data) => {
+  return data.some(u => !u.skills || u.skills.length === 0);
+};
+console.log('Empty skill user:', noSkill(users))

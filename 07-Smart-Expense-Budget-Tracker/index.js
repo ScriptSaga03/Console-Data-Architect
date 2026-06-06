@@ -1,3 +1,9 @@
+// =========================================================================
+// PROJECT 1: SMART EXPENSE & BUDGET TRACKER (CONSOLE ENGINE)
+// Developer: Mehtab Ansari
+// Concepts Covered: Arrays, Objects, HOFs (map, filter, reduce, every, some, flatMap, toSorted), ES6+
+// =========================================================================
+
 const ledger = [
   {
     id: "tx-001",
@@ -78,7 +84,7 @@ const ledger = [
     category: "gadgets",
     tags: ["work", "tech"],
     date: "2026-05-22",
-    paymentMethod: "Card" // Yeh bad expense hai, check karne ke liye ki pichle average se 300% bada hai ya nahi
+    paymentMethod: "Card"
   },
   {
     id: "tx-010",
@@ -105,7 +111,7 @@ const ledger = [
     category: "food",
     tags: ["zomato", "party"],
     date: "2026-05-28",
-    paymentMethod: "NetBanking" // different payment method check karne ke liye
+    paymentMethod: "NetBanking"
   },
   {
     id: "tx-013",
@@ -136,142 +142,200 @@ const ledger = [
   }
 ];
 
+// Making a shallow copy to prevent mutation of base dataset
 const ledgerData = [...ledger];
 
-// 🟢 Level 1: Warm-up & Filtering (Problems 1 to 5)
-// 1. Total Income & Total Expense (filter + reduce)
-// Doh alag-alag functions banao:
+// =========================================================================
+// 🟢 LEVEL 1: WARM-UP & FILTERING (Problems 1 to 5)
+// =========================================================================
 
-const getTotalByType = (type) =>{
+// QUESTION 1: Total Income & Total Expense (filter + reduce)
+// Create a reusable function to get the total sum based on the transaction type ('income' or 'expense').
+const getTotalByType = (type) => {
     const q = type.trim().toLowerCase();
     return ledgerData
-    .filter(transaction => transaction.type.toLowerCase() === q)
-    .reduce((sum, data) => sum + data.amount, 0);
-}
+        .filter(transaction => transaction.type.toLowerCase() === q)
+        .reduce((sum, data) => sum + data.amount, 0);
+};
+
+console.log('--- Problem 1 ---');
+console.log('Total Income:', getTotalByType('income'));
+console.log('Total Expense:', getTotalByType('expense'));
 
 
-console.log('total income is : ', getTotalByType('income'));
-console.log('total expense is :', getTotalByType('expense'));
-
-
-
-// Ek jo saare income transactions ka total sum nikale.
-console.log('tatal transction income', getTotalByType('income'));
-
-// Dusra jo saare expense transactions ka total sum nikale.
-console.log('total expense is :', getTotalByType('expense'));
-
-
-
-// 2. Get All Unique Categories (map + Set)
-// Pure ledger array me se sirf categories nikalni hain, aur unique categories ka ek naya array return karna hai (taaki duplicates na hon, jaise food baar-baar na aaye).
-
-const getUniqueCategories = () =>{
-    const uniq = ledgerData
-    .flatMap(c => c.category);
+// QUESTION 2: Get All Unique Categories (map + Set)
+// Extract all categories from the ledger and return a new array containing only unique categories.
+const getUniqueCategories = () => {
+    const uniq = ledgerData.flatMap(c => c.category.toLowerCase());
     return [...new Set(uniq)];
-}
-console.log('unique categories : ', getUniqueCategories());
+};
+
+console.log('\n--- Problem 2 ---');
+console.log('Unique Categories:', getUniqueCategories());
 
 
-
-// 3. High-Value Expenses (filter)
-// Ek function banao jo sirf un expense transactions ko filter kare jinka amount 3000 ya 3000 se zyada hai.
-
-const getHighExpenseTrans = () =>{
+// QUESTION 3: High-Value Expenses (filter)
+// Create a function that filters and returns only expense transactions with an amount of 3000 or more.
+const getHighExpenseTrans = () => {
     return ledgerData
-    .filter(trans =>  trans.type.toLowerCase() === 'expense' &&  trans.amount >= 3000);
-}
-console.log('High Expense Transaction List : ', getHighExpenseTrans());
+        .filter(trans => trans.type.toLowerCase() === 'expense' && trans.amount >= 3000);
+};
 
-// 4. Find Transaction by ID (find)
-// Ek function banao jo argument me ek id (e.g., "tx-005") le aur pure ledger me se us specific transaction ka pura object return kare. Agar na mile toh ek custom message de.
+console.log('\n--- Problem 3 ---');
+console.log('High Expense Transactions:', getHighExpenseTrans());
 
-const findTransById = (userId) =>{
+
+// QUESTION 4: Find Transaction by ID (find)
+// Create a function that takes an ID as an argument and returns that specific transaction object. Return a custom message if not found.
+const findTransById = (userId) => {
     const result = ledgerData.find(i => i.id === userId);
-   return result ? result : 'transaction not found!';
+    return result ? result : 'Transaction not found!';
 };
 
+console.log('\n--- Problem 4 ---');
+console.log('Find tx-001:', findTransById('tx-001'));
+console.log('Find tx-10254:', findTransById('tx-10254'));
 
 
-
-console.log('find transaction :', findTransById('tx-001'));
-console.log('find transaction :', findTransById('tx-10254'));
-
-
-// 5. Check if Any Cash Transaction Exists (some)
-// Pata karo ki kya pure ledger me ek bhi aisa transaction hai jo paymentMethod: "Cash" se hua ho. Output sirf true ya false hona chahiye.
-const hasCashTransExist = () =>{
-    return ledgerData
-    .some(trans => trans.paymentMethod.toLowerCase() === 'cash'.toLowerCase())
-}
-console.log('has cash trans :', hasCashTransExist())
-
-
-
-
-// //6 . Are All Transactions Valid? (every)
-// Check karo ki kya ledger ke saare transactions ka amount 0 se bada hai. Agar ek ka bhi amount 0 ya negative ho, toh output false aana chahiye.
-
-const isValidTrans = () =>{
-    return ledgerData
-    .every(t => t.amount > 0 )
+// QUESTION 5: Check if Any Cash Transaction Exists (some)
+// Determine whether there is at least one transaction in the ledger that used "Cash" as the payment method. Returns true/false.
+const hasCashTransExist = () => {
+    return ledgerData.some(trans => trans.paymentMethod.toLowerCase() === 'cash');
 };
 
-console.log('has valid transaction amount :', isValidTrans())
+console.log('\n--- Problem 5 ---');
+console.log('Has Cash Transaction:', hasCashTransExist());
 
-// 7. Extract All Tags into a Single Array (flatMap)
-// Saare transactions ke andar jo tags ka array hai, un sabhi tags ko nikal kar ek single flat array me convert karo (e.g., ["groceries", "diet", "primary", "monthly", ...]). Duplicates chalenge abhi. (Hint: Yahan flatMap apna asli jadu dikhayega).
 
-const extractTags = () =>{
-    return ledgerData
-    .flatMap(tag => tag.tags)
+// =========================================================================
+// 🟡 LEVEL 2: TARGET DATA MANIPULATION (Problems 6 to 10)
+// =========================================================================
+
+// QUESTION 6: Are All Transactions Valid? (every)
+// Check if all transactions in the ledger have an amount greater than 0. If any transaction has a 0 or negative amount, return false.
+const isValidTrans = () => {
+    return ledgerData.every(t => t.amount > 0);
 };
 
-console.log('tags: ', extractTags())
-
-// 8. Count Transactions by Type (reduce)
-// Ek function banao jo return kare ki pooray ledger me total kitne income ke transactions hain aur kitne expense ke. Output format aisa hona chahiye: { income: 3, expense: 12 }.
+console.log('\n--- Problem 6 ---');
+console.log('Is Ledger Completely Valid:', isValidTrans());
 
 
-const countTransByType = () =>{
-    return ledgerData
-    .reduce((count, data) =>{
-        
-        // if(data.type === 'income'){
-        //      count.income++
-        // }else if(data.type === 'expense'){
-        //     count.expense ++
-        // }
+// QUESTION 7: Extract All Tags into a Single Array (flatMap)
+// Pull out the tags array from all transactions and flatten them into a single flat array. Duplicates are allowed.
+const extractTags = () => {
+    return ledgerData.flatMap(tag => tag.tags);
+};
 
-       count[data.type] =  (count[data.type] || 0) +1;
+console.log('\n--- Problem 7 ---');
+console.log('All Flat Tags:', extractTags());
 
+
+// QUESTION 8: Count Transactions by Type (reduce)
+// Create a function that counts the total number of income vs expense transactions and returns an object in the format: { income: X, expense: Y }.
+const countTransByType = () => {
+    return ledgerData.reduce((count, data) => {
+        count[data.type] = (count[data.type] || 0) + 1;
         return count;
-
-    }, {income:0, expense:0});
-
-} 
-console.log('count transaction : ', countTransByType())
-
-// 9. Format Transaction Details (map + Template Literals)
-// Pure array par map chalao aur har transaction ke liye ek custom string return karo jo is format me ho:
-
-// "On 2026-05-10, spent 1200 INR on food." (Agar type income ho toh "spent" ki jagah "earned" likhna). Output saari strings ka ek single array hona chahiye.
-
-const formatTransDetails = () =>{
-    return ledgerData
-    .map( i => `on ${i.date}, ${i.type  === 'income'? "earned" :"spent"} ${i.amount} INR on ${i.category}`)
-} 
-
-console.log('format transaction details :', formatTransDetails())
-
-
-// 10. Find Index of First Rent Payment (findIndex)
-// Pata karo ki category: "rent" wala pehla transaction kis index par hai terminal me index print hona chahiye.
-
-const getFirstRentPaymentInd  = () => {
-    return ledgerData
-    .findIndex(i => i.category.toLowerCase() === 'rent');
+    }, { income: 0, expense: 0 });
 };
-console.log('first rent payment index : ', getFirstRentPaymentInd())
- 
+
+console.log('\n--- Problem 8 ---');
+console.log('Transaction Counts:', countTransByType());
+
+
+// QUESTION 9: Format Transaction Details (map + Template Literals)
+// Iterate through the array and format each transaction into a readable string sequence. Return an array of formatted strings.
+const formatTransDetails = () => {
+    return ledgerData.map(i => 
+        `On ${i.date}, ${i.type === 'income' ? "earned" : "spent"} ${i.amount} INR on ${i.category}.`
+    );
+};
+
+console.log('\n--- Problem 9 ---');
+console.log('Formatted Logs:', formatTransDetails());
+
+
+// QUESTION 10: Find Index of First Rent Payment (findIndex)
+// Locate the array index of the very first transaction belonging to the "rent" category.
+const getFirstRentPaymentInd = () => {
+    return ledgerData.findIndex(i => i.category.toLowerCase() === 'rent');
+};
+
+console.log('\n--- Problem 10 ---');
+console.log('First Rent Payment Index:', getFirstRentPaymentInd());
+
+
+// =========================================================================
+// 🟠 LEVEL 3: INTERMEDIATE LOGIC BUILDING (Problems 11 to 15)
+// =========================================================================
+
+// QUESTION 11: Sort Amounts Low to High (toSorted / Immutability)
+// Sort the ledger by transaction amounts in ascending order without modifying or mutating the original dataset.
+const sortedTransactionAmount = () => {
+    return ledgerData.toSorted((a, b) => a.amount - b.amount);
+};
+
+console.log('\n--- Problem 11 ---');
+console.log('Sorted Transactions (Ascending):', sortedTransactionAmount());
+
+
+// QUESTION 12: Case-Insensitive Search Transactions by Tag (filter + includes + map)
+// Create a reusable function that takes a tag name string and returns an array of transactions containing that tag, regardless of uppercase/lowercase input.
+const searchTransByTag = (query) => {
+    if (!query || !query.trim()) return [];
+    const q = query.trim().toLowerCase();
+
+    return ledgerData.filter(i => {
+        const lowerCaseTags = i.tags.map(tag => tag.toLowerCase());
+        return lowerCaseTags.includes(q);
+    });
+};
+
+console.log('\n--- Problem 12 ---');
+console.log('Search Tag "work":', searchTransByTag('work'));
+console.log('Search Tag "PARTY" (Case Insensitive Check):', searchTransByTag('PARTY'));
+
+
+// QUESTION 13: Group Expenses by Category (reduce)
+// Filter out the income entries and group all expense transactions dynamically into lists under their respective category names.
+const groupExpensesByCat = () => {
+    return ledgerData.reduce((acc, curr) => {
+        if (curr.type.toLowerCase() === 'expense') {
+            const cat = curr.category.toLowerCase();
+            acc[cat] = acc[cat] || [];
+            acc[cat].push(curr);
+        }
+        return acc;
+    }, {});
+};
+
+console.log('\n--- Problem 13 ---');
+console.log('Grouped Expenses Object:', groupExpensesByCat());
+
+
+// QUESTION 14: Average Expense Amount (filter + reduce)
+// Isolate all expense transactions, calculate their cumulative sum, and return the mathematical mean formatted to 2 decimal places.
+const getAvgExpenseAmount = () => {
+    const expenses = ledgerData.filter(t => t.type.toLowerCase() === 'expense');
+    if (expenses.length === 0) return "0.00";
+    
+    const totalExpenseAmount = expenses.reduce((sum, t) => sum + t.amount, 0);
+    const average = totalExpenseAmount / expenses.length;
+    return average.toFixed(2);
+};
+
+console.log('\n--- Problem 14 ---');
+console.log('Average Expense Amount:', getAvgExpenseAmount());
+
+
+// QUESTION 15: Simple Month Filter (filter + startsWith)
+// Create a function that accepts a month string filter (e.g., "YYYY-MM") and returns transactions corresponding to that specific month window.
+const monthFilter = (month) => {
+    if (!month || !month.trim()) return [];
+    return ledgerData.filter(t => t.date.startsWith(month.trim()));
+};
+
+console.log('\n--- Problem 15 ---');
+console.log('Transactions in May 2026:', monthFilter("2026-05"));
+console.log('=========================================================================');
